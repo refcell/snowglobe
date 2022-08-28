@@ -2,7 +2,7 @@
 
 # snowglobe • [![ci](https://github.com/abigger87/snowglobe/actions/workflows/ci.yml/badge.svg)](https://github.com/abigger87/snowglobe/actions/workflows/ci.yml) ![license](https://img.shields.io/github/license/abigger87/snowglobe?label=license) ![solidity](https://img.shields.io/badge/solidity-^0.8.15-lightgrey)
 
-A simple globe for the [snow.computer](https://snow.computer)
+A Logistic VRGDA ERC721 Globe for [snow.computer](https://snow.computer).
 
 
 ## Usage

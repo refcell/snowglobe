@@ -12,9 +12,9 @@ import { ISnowV1Program } from "src/interfaces/ISnowV1Program.sol";
 
 /// @title Globe
 /// @author asnared <https://github.com/abigger87>
-/// @notice A Simple Globe for the snow.computer
+/// @notice A Logistic VRGDA ERC721 Globe for https://snow.computer
 /// @notice Created using https://snow.computer/operators
-/// @notice The Globe is a Logistic VRGDA ERC721 token with rights to set snow.computer sprites
+/// @notice The Globe is a Logistic VRGDA ERC721 token wrapping the snow computer
 contract Globe is ISnowV1Program, ERC721 {
 
   /// ##################### CUSTOMS #####################
@@ -48,12 +48,18 @@ contract Globe is ISnowV1Program, ERC721 {
   /// @notice The base URI for the snow computer
   string public constant BASE_URI = "https://snow.computer/api/v1/token/";
 
+  /// @notice The Token that this controls
+  string public constant THIS_TOKEN = "1";
+
   /// ################### CONSTRUCTOR ###################
 
   constructor()
     ERC721("Globe", "GLOBE")
     LogisticVRGDA(69.42e18, 0.31e18, toWadUnsafe(MAX_SUPPLY), 0.1e18)
-  {}
+  {
+    spriteIndex = 14;
+    spriteValue = 0x000003c004200bd01008281427e4300c281427e410080bd0042003c000000000;
+  }
 
   /// @notice Allows a token owner to set the sprites
   modifier baller {
@@ -81,14 +87,11 @@ contract Globe is ISnowV1Program, ERC721 {
     emit FuckItWeBall(msg.sender, index, value);
   }
 
-
   /// ################### ERC721 LOGIC ##################
 
-  /// @notice Returns the token uri for a given token id
-  /// @param id The token id
-  /// @return The token uri
-  function tokenURI(uint256 id) public pure virtual override returns (string memory) {
-    return string(abi.encodePacked(BASE_URI, id.toString()));
+  /// @notice Returns the token uri for this contract
+  function tokenURI() public pure virtual override returns (string memory) {
+    return string(abi.encodePacked(BASE_URI, THIS_TOKEN));
   }
 
   /// @notice Mints a new Globe token
@@ -115,16 +118,6 @@ contract Globe is ISnowV1Program, ERC721 {
     external
     returns (uint8 index, uint256 value)
   {
-    uint256[2] memory sprites = [
-        0x000003c004200bd01008281427e4300c281427e410080bd0042003c000000000
-    ];
-
-    if (canvas[61] != sprites[1]) {
-        return (61, sprites[1]);
-    } else if (canvas[52] != sprites[0]) {
-        return (52, sprites[0]);
-    } else if (canvas[43] != sprites[0]) {
-        return (43, sprites[0]);
-    }
+    return (spriteIndex, spriteValue);
   }
 }
