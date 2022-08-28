@@ -1,4 +1,4 @@
-<img align="right" width="150" height="150" top="100" src="./assets/globe.jpg">
+<img align="right" width="150" height="150" top="100" src="./assets/globe.png">
 
 # snowglobe • [![ci](https://github.com/abigger87/snowglobe/actions/workflows/ci.yml/badge.svg)](https://github.com/abigger87/snowglobe/actions/workflows/ci.yml) ![license](https://img.shields.io/github/license/abigger87/snowglobe?label=license) ![solidity](https://img.shields.io/badge/solidity-^0.8.15-lightgrey)
 
