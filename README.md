@@ -11,39 +11,27 @@ A simple globe for the [snow.computer](https://snow.computer)
 forge install abigger87/snowglobe
 ```
 
+## Contracts
+
+[POLYGON] Globe: [``](https://polygonscan.com/address/)
+
+[POLYGON] Snow Globe V1: [`0xf53d926c13af77c53afae6b33480ddd94b167610`](https://polygonscan.com/address/0xf53d926c13af77c53afae6b33480ddd94b167610)
+
 
 ## Blueprint
 
 ```ml
 lib
 ├─ forge-std — https://github.com/foundry-rs/forge-std
-├─ solmate — https://github.com/Rari-Capital/solmate
+├─ solmate — https://github.com/transmissions11/solmate
+├─ vrgdas — https://github.com/transmissions11/vrgdas
 scripts
 ├─ Deploy.s.sol — Simple Deployment Script
 src
-├─ Greeter — A Minimal Greeter Contract
+├─ Globe — The Globe Contract
 test
-└─ Greeter.t — Exhaustive Tests
+└─ ...
 ```
-
-
-## Development
-
-**Setup**
-```bash
-forge install
-```
-
-**Building**
-```bash
-forge build
-```
-
-**Testing**
-```bash
-forge test
-```
-
 
 
 ## License
