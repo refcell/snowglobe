@@ -58,12 +58,12 @@ jobs:
       - name: Check contract sizes
         run: forge build --sizes
 
-      - name: Run Slither
-        uses: crytic/slither-action@main
-        id: slither
-        with:
-          target: '.'
-          slither-args: '--exclude solc-version,pragma,unused-state --exclude-dependencies'
+      # - name: Run Slither
+      #   uses: crytic/slither-action@main
+      #   id: slither
+      #   with:
+      #     target: '.'
+      #     slither-args: '--exclude solc-version,pragma,unused-state --exclude-dependencies'
 
   scripts:
     strategy:
