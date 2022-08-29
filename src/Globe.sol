@@ -31,7 +31,21 @@ contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
   /// @notice Thrown if the msg value was not high enough
   error InsufficientPayment();
 
+  /// @notice Thrown if the msg sender was not the owner of the token
+  error InvalidOwner();
+
+  /// @notice Thrown if we can't send the redemption
+  error RedemptionFailure();
+
   /// ##################### STORAGE #####################
+
+  /// @notice Maps token id to the mint price
+  /// @notice Allows the holder to redeem mint price after a week
+  /// @notice This incentivizes hodling
+  mapping(uint256 => uint256) public redemptions;
+
+  /// @notice Maps token id to when the redemptions are available (aka their cooldown period)
+  mapping(uint256 => uint256) public cooldown;
 
   /// @notice The next token id
   uint256 public totalSupply;
@@ -45,8 +59,8 @@ contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
   /// @notice The Token that this controls
   uint256 public THIS_TOKEN = 1;
 
-  /// @notice The minimum mint price
-  uint256 public constant MIN_PRICE = 0.01 ether;
+  /// @notice The cooldown for redemptions
+  uint256 public constant COOLDOWN_DELTA = 1 weeks;
 
   /// @notice The maximum supply of globes
   uint256 public constant MAX_SUPPLY = 256;
@@ -112,6 +126,20 @@ contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
     unchecked {
         SafeTransferLib.safeTransferETH(msg.sender, msg.value - price);
     }
+
+    redemptions[mintedId] = price;
+    cooldown[mintedId] = block.timestamp + COOLDOWN_DELTA;
+  }
+
+  /// @notice Allows holders to redeem the mint price after a specific period of time
+  function redeem(uint256 token) public {
+    if (ownerOf(token) != msg.sender) revert InvalidOwner();
+    if (block.timestamp < cooldown[token]) revert RedemptionFailure();
+
+    uint256 stashed_redemption = redemptions[token];
+    redemptions[token] = 0;
+    (bool sent,) = payable(msg.sender).call{value: stashed_redemption}("");
+    if (!sent) revert RedemptionFailure();
   }
 
   /// ############### SNOW COMPUTER LOGIC ###############
