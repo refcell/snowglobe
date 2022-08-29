@@ -7,7 +7,7 @@ fuzz_runs = 1_000
 remappings = [
   "forge-std=lib/forge-std/src/",
   "solmate=lib/solmate/src/",
-  "vrgdas=lib/vrgdas/src/",
+  "vrgdas=lib/VRGDAs/src/",
 ]
 
 [profile.ci]
