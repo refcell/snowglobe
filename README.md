@@ -2,7 +2,7 @@
 
 # snowglobe • [![ci](https://github.com/abigger87/snowglobe/actions/workflows/ci.yml/badge.svg)](https://github.com/abigger87/snowglobe/actions/workflows/ci.yml) ![license](https://img.shields.io/github/license/abigger87/snowglobe?label=license) ![solidity](https://img.shields.io/badge/solidity-^0.8.15-lightgrey)
 
-A Logistic VRGDA ERC721 Token fractionalizing ownership of [w1nt3r](https://twitter.com/w1nt3r_eth)'s [snow.computer](https://snow.computer) experiment.
+A Logistic VRGDA ERC721 Token fractionalizing ownership of [w1nt3r](https://twitter.com/w1nt3r_eth)'s [snow.computer](https://snow.computer).
 
 ## Overview
 
