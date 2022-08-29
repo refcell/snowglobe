@@ -106,7 +106,7 @@ contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
   function mint() external payable returns (uint256 mintedId) {
     uint256 price = getVRGDAPrice(toDaysWadUnsafe(block.timestamp), mintedId = totalSupply++);
 
-    if (msg.value <= MIN_PRICE) revert InsufficientPayment();
+    if (msg.value <= price) revert InsufficientPayment();
     _mint(msg.sender, mintedId);
 
     unchecked {
