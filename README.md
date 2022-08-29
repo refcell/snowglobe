@@ -5,24 +5,39 @@
 A Logistic VRGDA ERC721 Globe for [snow.computer](https://snow.computer).
 
 
-## Usage
+## Overview
 
-```bash
-forge install abigger87/snowglobe
-```
-
-## Contracts
+This is an experimental VRGDA ERC721 for [w1nt3r](https://twitter.com/w1nt3r_eth)'s [snow.computer](https://snow.computer) project. Contracts are **neither** heavily tested nor audited. Use at your own risk.
 
 [POLYGON] Globe: [`0x7b20d15334c8A25128aB9D1EDBf7F36e056d63D7`](https://polygonscan.com/address/0x7b20d15334c8A25128aB9D1EDBf7F36e056d63D7)
 
 [POLYGON] Snow Globe V1: [`0xf53d926c13af77c53afae6b33480ddd94b167610`](https://polygonscan.com/address/0xf53d926c13af77c53afae6b33480ddd94b167610)
 
+**Key Features**
+
+✅ VRGDAs
+✅ Mint Cost Redemptions (after a week if you still hold the token id, you can redeem the mint price)
+✅ No owner, simply ballers
+✅ A [w1nt3r](https://twitter.com/w1nt3r_eth) integrated experiment
+
+**Notes**
 
 Deployed to Polygon mainnet with:
 
 ```bash
 forge script script/Deploy.s.sol:Deploy --rpc-url $RPC_URL --private-key $DEPLOYER_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY --legacy -vvvv
 ```
+
+
+## Usage
+
+Install as a dependency using forge.
+
+```bash
+forge install abigger87/snowglobe
+```
+
+I don't know why you'd do this but you can - alternatively feel free to copy pasta any of this code :) Just be aware these are **not** rigorously tested or audited. Use at your own risk.
 
 
 ## Blueprint
