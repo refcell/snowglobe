@@ -2,12 +2,13 @@
 
 # snowglobe • [![ci](https://github.com/abigger87/snowglobe/actions/workflows/ci.yml/badge.svg)](https://github.com/abigger87/snowglobe/actions/workflows/ci.yml) ![license](https://img.shields.io/github/license/abigger87/snowglobe?label=license) ![solidity](https://img.shields.io/badge/solidity-^0.8.15-lightgrey)
 
-A Logistic VRGDA ERC721 Globe for [snow.computer](https://snow.computer).
-
+A Logistic VRGDA ERC721 Token fractionalizing ownership of [w1nt3r](https://twitter.com/w1nt3r_eth)'s [snow.computer](https://snow.computer) experiment.
 
 ## Overview
 
 This is an experimental VRGDA ERC721 for [w1nt3r](https://twitter.com/w1nt3r_eth)'s [snow.computer](https://snow.computer) project. Contracts are **neither** heavily tested nor audited. Use at your own risk.
+
+Currently, [`Globe`](./contracts/Globe.sol) simply wraps ownership of a snow computer `Operator`. In the future, this ownership and it's functionality may be gamified to create a truly unique experiment.
 
 [POLYGON] Globe: [`0x7b20d15334c8A25128aB9D1EDBf7F36e056d63D7`](https://polygonscan.com/address/0x7b20d15334c8A25128aB9D1EDBf7F36e056d63D7)
 
