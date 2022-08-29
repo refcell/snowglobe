@@ -3,16 +3,16 @@ pragma solidity ^0.8.15;
 
 import {Script} from 'forge-std/Script.sol';
 
-import {Greeter} from "src/Greeter.sol";
+import { Globe } from "src/Globe.sol";
 
 /// @notice A very simple deployment script
 contract Deploy is Script {
 
   /// @notice The main script entrypoint
-  /// @return greeter The deployed contract
-  function run() external returns (Greeter greeter) {
+  /// @return globe The deployed contract
+  function run() external returns (Globe globe) {
     vm.startBroadcast();
-    greeter = new Greeter("GM");
+    globe = new Globe();
     vm.stopBroadcast();
   }
 }

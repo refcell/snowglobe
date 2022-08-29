@@ -15,7 +15,7 @@ import { ISnowV1Program } from "src/interfaces/ISnowV1Program.sol";
 /// @notice A Logistic VRGDA ERC721 Globe for https://snow.computer
 /// @notice Created using https://snow.computer/operators
 /// @notice The Globe is a Logistic VRGDA ERC721 token wrapping the snow computer
-contract Globe is ISnowV1Program, ERC721 {
+contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
 
   /// ##################### CUSTOMS #####################
 
@@ -42,6 +42,9 @@ contract Globe is ISnowV1Program, ERC721 {
   /// @notice The sprite value
   uint256 public spriteValue;
 
+  /// @notice The minimum mint price
+  uint256 public constant MIN_PRICE = 0.01 ether;
+
   /// @notice The maximum supply of globes
   uint256 public constant MAX_SUPPLY = 256;
 
@@ -49,7 +52,10 @@ contract Globe is ISnowV1Program, ERC721 {
   string public constant BASE_URI = "https://snow.computer/api/v1/token/";
 
   /// @notice The Token that this controls
-  string public constant THIS_TOKEN = "1";
+  uint256 public constant THIS_TOKEN = 1;
+
+  /// @notice The Snow Contract
+  ISnowComputer public constant SNOW = ISnowComputer(0xF53D926c13Af77C53AFAe6B33480DDd94B167610);
 
   /// ################### CONSTRUCTOR ###################
 
@@ -63,7 +69,7 @@ contract Globe is ISnowV1Program, ERC721 {
 
   /// @notice Allows a token owner to set the sprites
   modifier baller {
-    if (balanceOf[msg.sender] == 0) revert BallersOnly();
+    if (balanceOf(msg.sender) == 0) revert BallersOnly();
     _;
   }
 
@@ -83,22 +89,22 @@ contract Globe is ISnowV1Program, ERC721 {
     // cache the index and value
     uint8 index = spriteIndex;
     uint256 value = spriteValue;
-    SNOW.storeProgram(msg.sender, address(this));
+    SNOW.storeProgram(THIS_TOKEN, address(this));
     emit FuckItWeBall(msg.sender, index, value);
   }
 
   /// ################### ERC721 LOGIC ##################
 
   /// @notice Returns the token uri for this contract
-  function tokenURI() public pure virtual override returns (string memory) {
-    return string(abi.encodePacked(BASE_URI, THIS_TOKEN));
+  function tokenURI(uint256) public pure virtual override returns (string memory) {
+    return string(abi.encodePacked(BASE_URI, uint2str(THIS_TOKEN)));
   }
 
   /// @notice Mints a new Globe token
   /// @dev supply limits checked by getVRGDAPrice
   /// @return mintedId the id of the newly minted token
   function mint() external payable returns (uint256 mintedId) {
-    uint256 price = getVRGDAPrice(toDaysWadUnsafe(block.timestamp), mintedId = totalSold++);
+    uint256 price = getVRGDAPrice(toDaysWadUnsafe(block.timestamp), mintedId = totalSupply++);
 
     if (msg.value <= MIN_PRICE) revert InsufficientPayment();
     _mint(msg.sender, mintedId);
@@ -110,14 +116,40 @@ contract Globe is ISnowV1Program, ERC721 {
 
   /// ############### SNOW COMPUTER LOGIC ###############
 
-  function name() external pure returns (string memory) {
-    return "Globe";
-  }
+  /// @dev Handled by the ERC721 `name` string
+  // function name() external pure returns (string memory) {
+  //   return "Globe";
+  // }
 
-  function run(uint256[64] memory canvas, uint8 lastIndex)
-    external
+  function run(uint256[64] memory, uint8)
+    external view
     returns (uint8 index, uint256 value)
   {
     return (spriteIndex, spriteValue);
+  }
+
+  /// ################ INTERNAL HELPERS #################
+
+  /// @notice Internal helper to convert a uint to a string
+  function uint2str(uint256 _i) internal pure returns (string memory) {
+    if (_i == 0) {
+      return "0";
+    }
+    uint256 j = _i;
+    uint256 len;
+    while (j != 0) {
+      len++;
+      j /= 10;
+    }
+    bytes memory bstr = new bytes(len);
+    uint256 k = len;
+    while (_i != 0) {
+      k = k-1;
+      uint8 temp = (48 + uint8(_i - _i / 10 * 10));
+      bytes1 b1 = bytes1(temp);
+      bstr[k] = b1;
+      _i /= 10;
+    }
+    return string(bstr);
   }
 }
