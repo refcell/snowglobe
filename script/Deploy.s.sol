@@ -13,6 +13,7 @@ contract Deploy is Script {
   function run() external returns (Globe globe) {
     vm.startBroadcast();
     globe = new Globe();
+    globe.applyToBecomeOperator();
     vm.stopBroadcast();
   }
 }

@@ -42,6 +42,9 @@ contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
   /// @notice The sprite value
   uint256 public spriteValue;
 
+  /// @notice The Token that this controls
+  uint256 public THIS_TOKEN = 1;
+
   /// @notice The minimum mint price
   uint256 public constant MIN_PRICE = 0.01 ether;
 
@@ -50,9 +53,6 @@ contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
 
   /// @notice The base URI for the snow computer
   string public constant BASE_URI = "https://snow.computer/api/v1/token/";
-
-  /// @notice The Token that this controls
-  uint256 public constant THIS_TOKEN = 1;
 
   /// @notice The Snow Contract
   ISnowComputer public constant SNOW = ISnowComputer(0xF53D926c13Af77C53AFAe6B33480DDd94B167610);
@@ -96,7 +96,7 @@ contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
   /// ################### ERC721 LOGIC ##################
 
   /// @notice Returns the token uri for this contract
-  function tokenURI(uint256) public pure virtual override returns (string memory) {
+  function tokenURI(uint256) public view virtual override returns (string memory) {
     return string(abi.encodePacked(BASE_URI, uint2str(THIS_TOKEN)));
   }
 
@@ -121,11 +121,20 @@ contract Globe is ERC721, ISnowV1Program, LogisticVRGDA {
   //   return "Globe";
   // }
 
-  function run(uint256[64] memory, uint8)
+  function run(uint256[64] memory canvas, uint8)
     external view
     returns (uint8 index, uint256 value)
   {
-    return (spriteIndex, spriteValue);
+    // cache storage
+    index = spriteIndex;
+    value = spriteValue;
+    canvas[index] = value;
+  }
+
+  /// @notice Apply to make this contract an operator
+  /// @notice Anyone can call because the program is coded to this contract
+  function applyToBecomeOperator() external {
+    SNOW.applyToBecomeOperator(address(this));
   }
 
   /// ################ INTERNAL HELPERS #################

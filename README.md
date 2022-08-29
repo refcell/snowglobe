@@ -13,9 +13,16 @@ forge install abigger87/snowglobe
 
 ## Contracts
 
-[POLYGON] Globe: [``](https://polygonscan.com/address/)
+[POLYGON] Globe: [`0x5e21fc87eb43f40d0a1da0ba9481740b15ce5bef`](https://polygonscan.com/address/0x5e21fc87eb43f40d0a1da0ba9481740b15ce5bef#code)
 
 [POLYGON] Snow Globe V1: [`0xf53d926c13af77c53afae6b33480ddd94b167610`](https://polygonscan.com/address/0xf53d926c13af77c53afae6b33480ddd94b167610)
+
+
+Deployed to Polygon mainnet with:
+
+```bash
+forge script script/Deploy.s.sol:Deploy --rpc-url $RPC_URL --private-key $DEPLOYER_KEY --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY -vvvv
+```
 
 
 ## Blueprint
